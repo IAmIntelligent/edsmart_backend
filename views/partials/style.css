@@ -1,0 +1,115 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+  }
+  
+  h1 {
+    margin-bottom: 10px;
+  }
+  
+  .form {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  input[type="text"],
+  textarea {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+  }
+  
+  button[type="submit"] {
+    background-color: #198754;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  #message {
+    margin-top: 10px;
+    padding: 10px;
+    color: #fff;
+  }
+  
+  #message p {
+    margin: 0;
+    padding: 5px;
+  }
+  
+  #message.success {
+    background-color: #198754;
+  }
+  
+  #message.error {
+    background-color: #dc3545;
+  }
+
+  /* image style */
+  .file-input-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .file-input-label {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #ccc;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .file-input-label .icon {
+    margin-right: 8px;
+  }
+  
+  .file-input-label:hover {
+    background-color: #aaa;
+  }
+  
+  .file-input-label:active {
+    background-color: #888;
+  }
+  
+  .file-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+  }
+  #previewImage{
+    width: 300px;
+  }
+
+  /* gallery style */
+  /* Add your custom styles for the gallery here */
+  .image-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+.gallery-item {
+  display: inline-block;
+  margin: 10px;
+  text-align: center;
+}
+
+.gallery-item img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+}
+
+.gallery-item p {
+  margin-top: 5px;
+  font-size: 15px;
+  width: 200px;
+}

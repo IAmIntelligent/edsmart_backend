@@ -1,0 +1,17 @@
+<h1>Gallery</h1>
+  <%  const gallery = [
+  { image: 'https://images.unsplash.com/photo-1500076656116-558758c991c1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y291bnRyeXxlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80', description: 'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available.  1' },
+  { image: 'https://cdn.pixabay.com/photo/2021/10/27/03/37/road-6745746_1280.jpg', description: 'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available.  2' },
+  { image: 'https://cdn.pixabay.com/photo/2016/08/11/23/48/mountains-1587287_1280.jpg', description: 'In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available.  3' },
+]; %>
+<div class="image-container">
+    <input type="file">
+    <% gallery.forEach(item => { %>
+        <div class="gallery-item">
+          <img src="<%= item.image %>" alt="<%= item.description %>">
+          <i class="bi bi-pencil-square fa-5x cursor-pointer"></i>
+          <p><%= item.description %></p>
+          <i class="bi bi-pencil-square fa-5x cursor-pointer"></i>
+        </div>
+      <% }) %>
+</div>

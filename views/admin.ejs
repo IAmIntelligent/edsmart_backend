@@ -1,0 +1,65 @@
+<%- include('partials/header') -%>
+<!--     -->
+
+
+    <h1>Edsmart Admin panel</h1>
+    <!-- add navbar -->
+    <form action="/api/navlinks" method="POST" class="form">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" required>
+        <br>
+        <label for="url">URL:</label>
+        <input type="text" id="url" name="url" required>
+        <br>
+        <button type="submit">Add Link</button>
+        <!-- Submit message -->
+        <div id="Message">
+        </div>
+    </form>
+
+
+    <div>
+        <h2>Updates previous Nav links</h2>
+    </div>
+
+    <!-- add gallery -->
+    <h1>Add Image</h1>
+    <form action="/api/imageGallery" method="POST" enctype="multipart/form-data">
+        <div class="file-input-container">
+            <label for="image" class="file-input-label">
+                <span class="icon">+</span>
+                <span class="button-text">Choose Image</span>
+            </label>
+            <input type="file" id="image" name="image" accept="image/*" class="file-input" required>
+        </div>
+
+        <div>
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" rows="4" required></textarea>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+
+    <!-- image preview -->
+
+    <img id="previewImage" src="" alt="Preview Image">
+
+    <!-- gallery  -->
+<%- include('partials/gallery') -%>
+    <script>
+// image preview js
+        document.getElementById("image").addEventListener("change", function () {
+            const file = this.files[0];
+            const reader = new FileReader();
+            console.log(reader)
+
+            reader.onload = function (e) {
+                const previewImage = document.getElementById("previewImage");
+                previewImage.src = e.target.result;
+               };
+
+            reader.readAsDataURL(file);
+        });
+    </script>
+
+    <%- include('partials/footer') -%>
