@@ -5,6 +5,9 @@ const path = require("path");
 const app = express();
 const multer = require("multer");
 app.use("/static", express.static(path.join(__dirname, "node_modules")));
+app.use('/uploads',express.static('uploads'))
+
+const {imageGallery,navlink} = require("./models/model") 
 
 // Set the view engine to ejs
 app.set("view engine", "ejs");
@@ -15,8 +18,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
-// This middleware will be revolked for the all requests that contain file-upload
-// app.use(uplaod());
 
 // connect to DB
 mongoose
@@ -41,34 +42,14 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage });
-// create Schema
-const LinkSchema = new mongoose.Schema({
-  title: String,
-  url: String,
-});
-const imageSchema = new mongoose.Schema({
-  image: {
-    filePath: String,
-    contentType: String,
-    // required: true
-  },
-  description: {
-    type: String,
-    // required: true
-  },
-});
-const link = mongoose.model("Link", LinkSchema);
-const ImageGallery = mongoose.model("ImageSchema", imageSchema);
+app.get("*",(req,res)=>{
+  res.status(404).send("<h1>404</h1>")
+})
 
 app.get("/api/imageGallery", async (req, res) => {
   try {
-    const allData = await ImageGallery.find({});
+    const allData = await imageGallery.find({});
 
-    // const contentType =
-    //   allData.length > 0 ? allData.forEach((image) => image.contentType) : "";
-    // res.set("Content-Type", contentType);
-
-    // console.log(allData.map((image) => image.contentType));
     allData?.map((item) => console.log(item));
     res.send({
       status: "ok",
@@ -86,12 +67,7 @@ app.get("/api/imageGallery", async (req, res) => {
 // get navlinks
 app.get("/api/navlinks", async (req, res) => {
   try {
-    const allLink = await link.find({});
-
-    // const contentType =
-    //   link > 0 ? (allLink.forEach((link) => link.contentType) ): "";
-    // res.set("Content-Type", contentType);
-    // console.log(allLink.map((link) => link.contentType));
+    const allLink = await navlink.find({});
 
     res.send({ status: "OK", data: allLink });
   } catch (err) {
@@ -99,42 +75,34 @@ app.get("/api/navlinks", async (req, res) => {
   }
 });
 
+
+
 // navlinks
 app.post("/api/navlinks", async (req, res) => {
   const { title, url } = req.body;
   console.log(title, url);
   try {
-    await link({ title, url }).save();
+    await navlink({ title, url }).save();
     console.log("saved successfully");
-    // res.redirect("/success")
-    // res.status(200).json({ success: true, message: "Header link created successfully" })
     res.status().redirect("/");
   } catch (error) {
     console.log("Failed to save link", error);
-    // res.redirect("/Failed")
-    // res.status(400).json({ success: false, message: "Header created Not successfully" })
     res.status().redirect("/");
   }
 });
 
 // imageGallery
 app.post("/api/imageGallery", upload.single("image"), async (req, res) => {
-  // if (req.files) {
   const { description } = req.body;
-  // const imageFile = req.files.image.data; // Assuming you have a file upload field named 'image' in your form
-  // const imageName = req.files.image.name;
 
-  // console.log("files", req.files.image);
-  // console.log("body", req.body);
   const { filename, mimetype } = req.file;
   console.log(req.file);
   console.log("description:--", description);
   try {
-    await ImageGallery({
+    await imageGallery({
       image: {
         filePath: filename,
         contentType: mimetype,
-        // filename: imageName,
       },
       description,
     }).save();
@@ -144,9 +112,6 @@ app.post("/api/imageGallery", upload.single("image"), async (req, res) => {
     console.log("Failed to save image", error);
     res.redirect("/");
   }
-  // } else {
-  // console.log("No files found");
-  // }
 });
 
 // serve the admin.html
